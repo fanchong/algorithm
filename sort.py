@@ -1,4 +1,6 @@
-
+'''
+Quick sort
+'''
 
 def depart(seq, left, right):
 	flag = seq[left]
