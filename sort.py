@@ -1,5 +1,6 @@
+#--coding:utf-8 --
 '''
-Quick sort,bubble sort and selection sort
+Quick sort,bubble sort,selection sort and heapsort
 '''
 import random
 
@@ -47,6 +48,49 @@ def quick_sort(seq, left, right):
 		quick_sort(seq, left, middle)
 		quick_sort(seq, middle+1, right)
 
+#heapsort
+def heap_sort(seq):
+	build_heap(seq)
+
+	length = len(seq)
+	for i in reversed(range(1, length)):
+		swap(seq, 0, i)
+		heapify(seq, 0, i-1)
+
+def swap(arr, indexone, indexanother):
+	arr[indexone], arr[indexanother] = arr[indexanother], arr[indexone]
+
+def build_heap(seq):
+	length = len(seq)
+	for i in reversed(range(0, (length-1)/2)):
+		heapify(seq, i, length-1)
+
+def heapify(seq, low, high):
+	left = low * 2 + 1
+	right= left + 1
+	current = low
+
+	tmp = seq[low]
+	while left <= high:
+		if right <= high:
+			if seq[left] < seq[right]:
+				next = right
+			else:
+				next = left
+		else:
+			next = left
+
+		if tmp < seq[next]:
+			seq[current] = seq[next]
+			current = next
+			left = current * 2 + 1
+			right = left + 1
+		else:
+			break
+	seq[current] = tmp
+
+
+#main
 if __name__ == '__main__':
 	print "------quick sort-----"
 	data = [x for x in range(20)]
@@ -65,3 +109,11 @@ if __name__ == '__main__':
 	print "before:", data
 	select_sort(data)
 	print "after:",data
+
+	print "-----heapsort-----"
+	data = [x for x in range(5)]
+	random.shuffle(data)
+	print "before:", data
+	heap_sort(data)
+	print "after:",data
+
